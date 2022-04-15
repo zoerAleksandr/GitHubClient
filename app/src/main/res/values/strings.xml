@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">GitHubClient</string>
+    <string name="send">send</string>
+    <string name="empty_text_view">Введите логин аккаунта GitHub</string>
 </resources>
