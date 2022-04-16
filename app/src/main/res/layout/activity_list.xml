@@ -97,11 +97,11 @@
         android:id="@+id/empty_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/list_margin_between_view"
         android:gravity="center"
+        android:text="@string/empty_text_view"
         android:textSize="@dimen/error_text_size"
         android:visibility="visible"
-        android:layout_marginTop="@dimen/list_margin_between_view"
-        android:text="@string/empty_text_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/login_layout" />

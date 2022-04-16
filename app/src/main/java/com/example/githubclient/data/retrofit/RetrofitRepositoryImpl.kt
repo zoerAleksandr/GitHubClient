@@ -8,15 +8,15 @@ class RetrofitRepositoryImpl : Repository {
         TODO("Not yet implemented")
     }
 
-    override fun getProfile(id: Long): UserProfile {
+    override fun getProfile(login: String): UserProfile {
         TODO("Not yet implemented")
     }
 
-    override fun delete(id: Long): Boolean {
+    override fun delete(userProfile: UserProfile): Boolean {
         TODO("Not yet implemented")
     }
 
-    override fun update(userProfile: UserProfile): Boolean {
+    override fun update(userProfile: UserProfile) {
         TODO("Not yet implemented")
     }
 }

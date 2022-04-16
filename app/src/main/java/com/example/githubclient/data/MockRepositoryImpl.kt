@@ -5,16 +5,16 @@ import com.example.githubclient.domain.UserProfile
 
 class MockRepositoryImpl : Repository {
     private val listUser: MutableList<UserProfile> = mutableListOf(
-        UserProfile(1, "name1", "url"),
-        UserProfile(2, "name2", "url"),
-        UserProfile(3, "name3", "url"),
-        UserProfile(4, "name4", "url"),
+        UserProfile(1, "name1", "https://avatars.githubusercontent.com/u/79718551?v=4", mutableListOf()),
+        UserProfile(2, "name2", "https://avatars.githubusercontent.com/u/79718551?v=4", mutableListOf()),
+        UserProfile(3, "name3", "https://avatars.githubusercontent.com/u/79718551?v=4", mutableListOf()),
+        UserProfile(4, "name4", "https://avatars.githubusercontent.com/u/79718551?v=4", mutableListOf()),
     )
 
     override fun getAll(): MutableList<UserProfile> = listUser
 
-    override fun getProfile(id: Long): UserProfile? {
-        return listUser.find { targetId -> id.equals(targetId) }
+    override fun getProfile(login: String): UserProfile? {
+        return listUser[0]
     }
 
     override fun delete(userProfile: UserProfile): Boolean {
