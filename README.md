@@ -5,6 +5,8 @@
 
 Приложение для Android создано в учебных целях для отработки практических навыков по теме RxJava, Dagger 2
 
+<img src = "./githubclient.gif" alt="githubclient" height="720">
+
 Рабочая ветка - `master`
  
 Задачи:
