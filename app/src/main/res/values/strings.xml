@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">GitHubClient</string>
     <string name="send">send</string>
-    <string name="empty_text_view">Введите логин аккаунта GitHub</string>
+    <string name="first_visit_text_view">Введите логин аккаунта GitHub</string>
+    <string name="empty_text_view_detail_fragment">У пользователя нет репозиториев</string>
+    <string name="empty_text_view_list_fragment">"Пользователь не найден "</string>
 </resources>

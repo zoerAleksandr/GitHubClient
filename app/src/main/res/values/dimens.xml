@@ -4,10 +4,12 @@
     <dimen name="list_margin_between_view">8dp</dimen>
     <dimen name="detail_user_name_text_size">24sp</dimen>
     <dimen name="detail_margin_between_view">16dp</dimen>
+    <dimen name="error_text_size">18sp</dimen>
 
     <dimen name="item_padding_root">8dp</dimen>
     <dimen name="item_margin_between_view">16dp</dimen>
     <dimen name="item_name_text_size">24sp</dimen>
     <dimen name="item_description_text_size">18sp</dimen>
-    <dimen name="error_text_size">18sp</dimen>
+    <dimen name="item_size_between_items_recycler_view">6dp</dimen>
+    <dimen name="item_margin_horizontal_root">4dp</dimen>
 </resources>
