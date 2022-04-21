@@ -28,7 +28,6 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         viewModel.getData().observe(viewLifecycleOwner) { renderData(it) }
 
         binding.sendButton.setOnClickListener {
-            binding.emptyTextView.visibility = View.GONE
             viewModel.onSend(binding.loginEditText.text.toString())
         }
 
@@ -50,30 +49,30 @@ class ListFragment : Fragment(R.layout.fragment_list) {
                     binding.userProfileCardView.visibility = View.GONE
                     binding.errorTextView.visibility = View.GONE
                     binding.firstVisitTextView.visibility = View.GONE
-                    binding.emptyTextView.visibility = View.GONE
                 }
             }
             is AppState.Success<*> -> {
-                binding.loadingLayout.visibility = View.GONE
-                binding.firstVisitTextView.visibility = View.GONE
-                if ((state.data as UserProfile?) == null) {
-                    binding.emptyTextView.visibility = View.VISIBLE
-                } else {
-                    binding.userProfileCardView.visibility = View.VISIBLE
-                    userProfileForBundle = state.data
-                    binding.avatarImageView.load(state.data?.image) {
+                val userProfile = state.data as UserProfile
+                binding.apply {
+                    errorTextView.visibility = View.GONE
+                    loadingLayout.visibility = View.GONE
+                    firstVisitTextView.visibility = View.GONE
+                    userProfileCardView.visibility = View.VISIBLE
+                    userProfileForBundle = userProfile
+                    userNameTextView.text = userProfile.name
+                    avatarImageView.load(userProfile.image) {
+                        placeholder(R.drawable.ic_placeholder_account_circle_24)
                         transformations(CircleCropTransformation())
                     }
-                    binding.userNameTextView.text = state.data?.name
                 }
             }
             is AppState.Error -> {
                 binding.apply {
                     loadingLayout.visibility = View.GONE
-                    binding.userProfileCardView.visibility = View.GONE
-                    binding.emptyTextView.visibility = View.GONE
-                    binding.errorTextView.visibility = View.VISIBLE
-                    binding.errorTextView.text = state.error.message
+                    userProfileCardView.visibility = View.GONE
+                    firstVisitTextView.visibility = View.GONE
+                    errorTextView.visibility = View.VISIBLE
+                    errorTextView.text = state.error.message
                 }
             }
         }

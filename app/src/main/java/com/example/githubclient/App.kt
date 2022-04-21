@@ -8,7 +8,7 @@ import com.example.githubclient.domain.UserProfileRepository
 import com.example.githubclient.domain.UserRepoRepository
 
 class App : Application() {
-    val userProfileRepository: UserProfileRepository by lazy { MockUserProfileRepositoryImpl(userReposRepository) }
+    val userProfileRepository: UserProfileRepository by lazy { MockUserProfileRepositoryImpl() }
     val userReposRepository: UserRepoRepository by lazy { MockUserRepoRepository() }
 }
 
