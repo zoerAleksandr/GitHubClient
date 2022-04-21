@@ -1,8 +1,7 @@
-package com.example.githubclient.data
+package com.example.githubclient.data.mock
 
 import com.example.githubclient.domain.UserProfile
 import com.example.githubclient.domain.UserProfileRepository
-import com.example.githubclient.domain.UserRepoRepository
 import io.reactivex.rxjava3.core.Single
 
 class MockUserProfileRepositoryImpl(

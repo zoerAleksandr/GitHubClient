@@ -2,8 +2,8 @@ package com.example.githubclient
 
 import android.app.Application
 import android.content.Context
-import com.example.githubclient.data.MockUserProfileRepositoryImpl
-import com.example.githubclient.data.MockUserRepoRepository
+import com.example.githubclient.data.mock.MockUserProfileRepositoryImpl
+import com.example.githubclient.data.mock.MockUserRepoRepository
 import com.example.githubclient.domain.UserProfileRepository
 import com.example.githubclient.domain.UserRepoRepository
 

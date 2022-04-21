@@ -47,23 +47,21 @@ class DetailUserProfileFragment : Fragment(R.layout.fragment_detail_user_profile
         }
     }
 
-    private fun renderData(appState: AppState?) {
+    private fun renderData(appState: AppState) {
         when (appState) {
             is AppState.Loading -> {
                 binding.loadingLayout.visibility = View.VISIBLE
                 binding.errorTextView.visibility = View.GONE
             }
             is AppState.Success<*> -> {
+                val reposList = appState.data as List<UserRepo>
                 binding.loadingLayout.visibility = View.GONE
                 binding.listRepoRecyclerView.visibility = View.VISIBLE
-                if ((appState.data as List<UserRepo>).isEmpty()) {
-                    binding.emptyTextView.visibility = View.VISIBLE
-                } else {
-                    listAdapter.setReposList(appState.data)
-                }
+                listAdapter.setReposList(reposList)
             }
             is AppState.Error -> {
                 binding.errorTextView.visibility = View.VISIBLE
+                binding.errorTextView.text = appState.error.message.toString()
                 binding.loadingLayout.visibility = View.GONE
             }
         }
