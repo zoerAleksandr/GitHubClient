@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubclient.databinding.ItemRepositoryBinding
-import com.example.githubclient.domain.UserRepo
+import com.example.githubclient.domain.userrepo.UserRepoEntity
 
 class DetailUserAdapter : RecyclerView.Adapter<DetailUserVH>() {
-    private var reposList: List<UserRepo> = listOf()
+    private var reposList: List<UserRepoEntity> = listOf()
 
-    fun setReposList(list: List<UserRepo>) {
+    fun setReposList(list: List<UserRepoEntity>) {
         Log.d("Debug_Adapter", "$list")
         reposList = list
         notifyDataSetChanged()

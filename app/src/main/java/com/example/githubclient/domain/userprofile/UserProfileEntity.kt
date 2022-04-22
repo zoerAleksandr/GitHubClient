@@ -1,4 +1,4 @@
-package com.example.githubclient.domain
+package com.example.githubclient.domain.userprofile
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName

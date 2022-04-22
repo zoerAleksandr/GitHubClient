@@ -3,7 +3,7 @@ package com.example.githubclient.ui.detail_screen
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.githubclient.domain.UserRepoRepository
+import com.example.githubclient.domain.userrepo.UserRepoRepository
 import com.example.githubclient.ui.AppState
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.subscribeBy

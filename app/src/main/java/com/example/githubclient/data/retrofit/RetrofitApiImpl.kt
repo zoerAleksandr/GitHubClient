@@ -7,13 +7,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 private const val BASE_URL = "https://api.github.com/"
 
-class RetrofitUserProfileApiImpl {
-    private val userProfileRetrofit = Retrofit.Builder()
+class RetrofitApiImpl {
+    private val retrofitGitHub = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
         .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
         .build()
 
-    val userProfileApi: RetrofitUserProfileApi =
-        userProfileRetrofit.create(RetrofitUserProfileApi::class.java)
+    val retrofitApi: RetrofitApi =
+        retrofitGitHub.create(RetrofitApi::class.java)
 }

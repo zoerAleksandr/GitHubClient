@@ -1,17 +1,16 @@
-package com.example.githubclient.data.retrofit
+package com.example.githubclient.data.room
 
-import com.example.githubclient.domain.*
+import com.example.githubclient.domain.userprofile.UserProfileEntity
+import com.example.githubclient.domain.userprofile.UserProfileRepository
 import io.reactivex.rxjava3.core.Single
 
-class RetrofitUserProfileRepositoryImpl : UserProfileRepository {
-    private val retrofitApi = RetrofitUserProfileApiImpl()
-
+class RoomUserProfileRepositoryImpl : UserProfileRepository {
     override fun getAll(): MutableList<UserProfileEntity> {
         TODO("Not yet implemented")
     }
 
     override fun getProfile(login: String): Single<UserProfileEntity> {
-        return retrofitApi.userProfileApi.getUser(login)
+        TODO("Not yet implemented")
     }
 
     override fun delete(userProfile: UserProfileEntity): Boolean {

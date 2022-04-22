@@ -10,7 +10,7 @@ import coil.transform.CircleCropTransformation
 import com.example.githubclient.R
 import com.example.githubclient.app
 import com.example.githubclient.databinding.FragmentListBinding
-import com.example.githubclient.domain.UserProfileEntity
+import com.example.githubclient.domain.userprofile.UserProfileEntity
 import com.example.githubclient.ui.AppState
 import com.example.githubclient.ui.detail_screen.DetailUserProfileFragment
 

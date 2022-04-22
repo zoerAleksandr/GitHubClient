@@ -1,4 +1,4 @@
-package com.example.githubclient.domain
+package com.example.githubclient.domain.userprofile
 
 import io.reactivex.rxjava3.core.Single
 
