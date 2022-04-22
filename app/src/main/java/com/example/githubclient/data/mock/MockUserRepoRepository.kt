@@ -3,6 +3,7 @@ package com.example.githubclient.data.mock
 import com.example.githubclient.domain.userrepo.UserRepoEntity
 import com.example.githubclient.domain.userrepo.UserRepoRepository
 import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.schedulers.Schedulers
 
 class MockUserRepoRepository : UserRepoRepository {
     private val reposList: List<UserRepoEntity> = listOf(
@@ -16,7 +17,7 @@ class MockUserRepoRepository : UserRepoRepository {
         return if (reposList.isNullOrEmpty()) {
             Single.error(Throwable("У пользователя нет репозиториев"))
         } else {
-            Single.just(reposList)
+            Single.just(reposList).subscribeOn(Schedulers.io())
         }
     }
 

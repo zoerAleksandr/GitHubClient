@@ -4,6 +4,7 @@ import com.example.githubclient.data.retrofit.RetrofitApiImpl
 import com.example.githubclient.domain.userprofile.UserProfileEntity
 import com.example.githubclient.domain.userprofile.UserProfileRepository
 import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.schedulers.Schedulers
 
 class RetrofitUserProfileRepositoryImpl(private val retrofitApi: RetrofitApiImpl) : UserProfileRepository {
 
@@ -13,6 +14,7 @@ class RetrofitUserProfileRepositoryImpl(private val retrofitApi: RetrofitApiImpl
 
     override fun getProfile(login: String): Single<UserProfileEntity> {
         return retrofitApi.retrofitApi.getUser(login)
+            .subscribeOn(Schedulers.io())
     }
 
     override fun delete(userProfile: UserProfileEntity): Boolean {

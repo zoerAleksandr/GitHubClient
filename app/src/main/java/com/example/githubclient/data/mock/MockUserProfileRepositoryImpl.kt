@@ -3,6 +3,7 @@ package com.example.githubclient.data.mock
 import com.example.githubclient.domain.userprofile.UserProfileEntity
 import com.example.githubclient.domain.userprofile.UserProfileRepository
 import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.schedulers.Schedulers
 
 class MockUserProfileRepositoryImpl(
 ) : UserProfileRepository {
@@ -31,7 +32,7 @@ class MockUserProfileRepositoryImpl(
 
     override fun getProfile(login: String): Single<UserProfileEntity> {
         return listUser.find { it.login == login }?.let {
-            Single.just(it)
+            Single.just(it).subscribeOn(Schedulers.io())
         } ?: Single.error(Throwable("Не нашел"))
     }
 
