@@ -10,7 +10,7 @@ import coil.transform.CircleCropTransformation
 import com.example.githubclient.R
 import com.example.githubclient.app
 import com.example.githubclient.databinding.FragmentListBinding
-import com.example.githubclient.domain.UserProfile
+import com.example.githubclient.domain.UserProfileEntity
 import com.example.githubclient.ui.AppState
 import com.example.githubclient.ui.detail_screen.DetailUserProfileFragment
 
@@ -21,7 +21,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     private val viewModel: ListViewModel by viewModels {
         ListViewModelFactory(requireContext().app.userProfileRepository)
     }
-    private var userProfileForBundle: UserProfile? = null
+    private var userProfileForBundle: UserProfileEntity? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -52,14 +52,14 @@ class ListFragment : Fragment(R.layout.fragment_list) {
                 }
             }
             is AppState.Success<*> -> {
-                val userProfile = state.data as UserProfile
+                val userProfile = state.data as UserProfileEntity
                 binding.apply {
                     errorTextView.visibility = View.GONE
                     loadingLayout.visibility = View.GONE
                     firstVisitTextView.visibility = View.GONE
                     userProfileCardView.visibility = View.VISIBLE
                     userProfileForBundle = userProfile
-                    userNameTextView.text = userProfile.name
+                    userNameTextView.text = userProfile.login
                     avatarImageView.load(userProfile.image) {
                         placeholder(R.drawable.ic_placeholder_account_circle_24)
                         transformations(CircleCropTransformation())

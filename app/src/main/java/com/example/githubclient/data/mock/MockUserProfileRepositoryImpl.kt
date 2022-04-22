@@ -1,45 +1,45 @@
 package com.example.githubclient.data.mock
 
-import com.example.githubclient.domain.UserProfile
+import com.example.githubclient.domain.UserProfileEntity
 import com.example.githubclient.domain.UserProfileRepository
 import io.reactivex.rxjava3.core.Single
 
 class MockUserProfileRepositoryImpl(
 ) : UserProfileRepository {
-    private val listUser: MutableList<UserProfile> = mutableListOf(
-        UserProfile(
+    private val listUser: MutableList<UserProfileEntity> = mutableListOf(
+        UserProfileEntity(
             1,
             "name1",
             "https://avatars.githubusercontent.com/u/79718551?v=4",
-            listOf()
+            "listOf()"
         ),
-        UserProfile(
+        UserProfileEntity(
             2,
             "name2",
             "https://avatars.githubusercontent.com/u/79718551?v=4",
-            listOf()
+            "listOf()"
         ),
-        UserProfile(
+        UserProfileEntity(
             3,
             "name3",
             "https://avatars.githubusercontent.com/u/79718551?v=4",
-            listOf()
+            "listOf()"
         ),
     )
 
-    override fun getAll(): MutableList<UserProfile> = listUser
+    override fun getAll(): MutableList<UserProfileEntity> = listUser
 
-    override fun getProfile(login: String): Single<UserProfile> {
-        return listUser.find { it.name == login }?.let {
+    override fun getProfile(login: String): Single<UserProfileEntity> {
+        return listUser.find { it.login == login }?.let {
             Single.just(it)
         } ?: Single.error(Throwable("Не нашел"))
     }
 
-    override fun delete(userProfile: UserProfile): Boolean {
+    override fun delete(userProfile: UserProfileEntity): Boolean {
         return listUser.remove(userProfile)
     }
 
-    override fun update(userProfile: UserProfile) {
+    override fun update(userProfile: UserProfileEntity) {
         val index = listUser.indexOf(userProfile)
         listUser[index] = userProfile
     }
