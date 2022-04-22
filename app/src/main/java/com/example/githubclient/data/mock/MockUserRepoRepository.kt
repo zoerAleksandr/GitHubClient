@@ -6,22 +6,17 @@ import io.reactivex.rxjava3.core.Single
 
 class MockUserRepoRepository : UserRepoRepository {
     private val reposList: List<UserRepoEntity> = listOf(
-        UserRepoEntity(0L, "name1", "repoName1owner1", "desc1"),
-        UserRepoEntity(1L, "name1", "repoName2owner1", "desc2"),
-        UserRepoEntity(2L, "name1", "repoName3owner1", "desc3"),
-        UserRepoEntity(3L, "name1", "repoName4owner1", "desc4"),
-
-        UserRepoEntity(4L, "name2", "repoName1owner2", "desc1"),
-        UserRepoEntity(5L, "name2", "repoName2owner2", "desc2"),
-        UserRepoEntity(6L, "name2", "repoName3owner2", "desc3"),
-        UserRepoEntity(7L, "name2", "repoName4owner2", "desc4"),
+        UserRepoEntity(0L, "nameRepo1", "desc1", "Kotlin"),
+        UserRepoEntity(1L, "nameRepo2", "desc2", "Java"),
+        UserRepoEntity(2L, "nameRepo3", "desc3", "Java"),
+        UserRepoEntity(3L, "nameRepo4", "desc4", "Kotlin"),
     )
 
     override fun getReposList(loginOwner: String): Single<List<UserRepoEntity>> {
-        return if (reposList.none { it.loginOwner == loginOwner }) {
+        return if (reposList.isNullOrEmpty()) {
             Single.error(Throwable("У пользователя нет репозиториев"))
         } else {
-            Single.just(reposList.filter { it.loginOwner == loginOwner })
+            Single.just(reposList)
         }
     }
 
