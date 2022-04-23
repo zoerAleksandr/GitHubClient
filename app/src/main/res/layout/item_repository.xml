@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginHorizontal="@dimen/item_margin_horizontal_root"
     android:layout_marginTop="@dimen/item_size_between_items_recycler_view"
     android:orientation="vertical">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:padding="@dimen/padding_root">
 
         <TextView
@@ -20,7 +20,18 @@
             android:layout_marginBottom="@dimen/item_margin_between_view"
             android:textSize="@dimen/item_name_text_size"
             android:textStyle="bold"
+            android:maxLines="1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             tools:text="Repo Name" />
+
+        <TextView
+            android:id="@+id/repo_language_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/repo_name_text_view"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Language: Kotlin"/>
 
         <TextView
             android:id="@+id/repo_description_text_view"
@@ -29,6 +40,11 @@
             android:singleLine="true"
             android:textSize="@dimen/item_description_text_size"
             android:textStyle="italic"
+            android:maxLines="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/repo_language_text_view"
             tools:text="Repo Description" />
-    </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

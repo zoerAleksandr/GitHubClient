@@ -2,14 +2,17 @@ package com.example.githubclient
 
 import android.app.Application
 import android.content.Context
-import com.example.githubclient.data.MockUserProfileRepositoryImpl
-import com.example.githubclient.data.MockUserRepoRepository
-import com.example.githubclient.domain.UserProfileRepository
-import com.example.githubclient.domain.UserRepoRepository
+import com.example.githubclient.data.mock.MockUserRepoRepository
+import com.example.githubclient.data.retrofit.RetrofitApiImpl
+import com.example.githubclient.data.retrofit.userprofile.RetrofitUserProfileRepositoryImpl
+import com.example.githubclient.data.retrofit.userrepo.RetrofitUserRepoRepositoryImpl
+import com.example.githubclient.domain.userprofile.UserProfileRepository
+import com.example.githubclient.domain.userrepo.UserRepoRepository
 
 class App : Application() {
-    val userProfileRepository: UserProfileRepository by lazy { MockUserProfileRepositoryImpl(userReposRepository) }
-    val userReposRepository: UserRepoRepository by lazy { MockUserRepoRepository() }
+    private val retrofit: RetrofitApiImpl = RetrofitApiImpl()
+    val userProfileRepository: UserProfileRepository by lazy { RetrofitUserProfileRepositoryImpl(retrofit) }
+    val userReposRepository: UserRepoRepository by lazy { RetrofitUserRepoRepositoryImpl(retrofit) }
 }
 
 val Context.app: App

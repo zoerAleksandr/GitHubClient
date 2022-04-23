@@ -11,8 +11,8 @@ import coil.transform.CircleCropTransformation
 import com.example.githubclient.R
 import com.example.githubclient.app
 import com.example.githubclient.databinding.FragmentDetailUserProfileBinding
-import com.example.githubclient.domain.UserProfile
-import com.example.githubclient.domain.UserRepo
+import com.example.githubclient.domain.userprofile.UserProfileEntity
+import com.example.githubclient.domain.userrepo.UserRepoEntity
 import com.example.githubclient.ui.AppState
 import com.example.githubclient.ui.list_screen.USER_KEY
 
@@ -36,34 +36,34 @@ class DetailUserProfileFragment : Fragment(R.layout.fragment_detail_user_profile
         binding.listRepoRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.listRepoRecyclerView.adapter = listAdapter
 
-        arguments?.getParcelable<UserProfile>(USER_KEY)?.let { userProfile ->
+        arguments?.getParcelable<UserProfileEntity>(USER_KEY)?.let { userProfile ->
             binding.avatarImageView.load(userProfile.image) {
                 transformations(CircleCropTransformation())
             }
-            binding.userNameTextView.text = userProfile.name
-            viewModel.getReposList(userProfile.name).observe(viewLifecycleOwner) { appState ->
-                renderData(appState)
+            binding.userNameTextView.text = userProfile.login
+            userProfile.login?.let {
+                viewModel.getReposList(it).observe(viewLifecycleOwner) { appState ->
+                    renderData(appState)
+                }
             }
         }
     }
 
-    private fun renderData(appState: AppState?) {
+    private fun renderData(appState: AppState) {
         when (appState) {
             is AppState.Loading -> {
                 binding.loadingLayout.visibility = View.VISIBLE
                 binding.errorTextView.visibility = View.GONE
             }
             is AppState.Success<*> -> {
+                val reposList = appState.data as List<UserRepoEntity>
                 binding.loadingLayout.visibility = View.GONE
                 binding.listRepoRecyclerView.visibility = View.VISIBLE
-                if ((appState.data as List<UserRepo>).isEmpty()) {
-                    binding.emptyTextView.visibility = View.VISIBLE
-                } else {
-                    listAdapter.setReposList(appState.data)
-                }
+                listAdapter.setReposList(reposList)
             }
             is AppState.Error -> {
                 binding.errorTextView.visibility = View.VISIBLE
+                binding.errorTextView.text = appState.error.message.toString()
                 binding.loadingLayout.visibility = View.GONE
             }
         }

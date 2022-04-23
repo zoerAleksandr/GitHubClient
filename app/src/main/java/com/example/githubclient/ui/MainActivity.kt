@@ -10,9 +10,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        supportFragmentManager.beginTransaction()
-            .add(R.id.main_container, ListFragment())
-            .commitNow()
-
+        if (supportFragmentManager.findFragmentById(R.id.main_container) == null) {
+            supportFragmentManager.beginTransaction()
+                .add(R.id.main_container, ListFragment())
+                .commitNow()
+        }
     }
 }
