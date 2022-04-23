@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/item_margin_horizontal_root"
+    android:layout_marginTop="@dimen/item_size_between_items_recycler_view"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_root">
+
+        <TextView
+            android:id="@+id/repo_name_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/item_margin_between_view"
+            android:textSize="@dimen/item_name_text_size"
+            android:textStyle="bold"
+            tools:text="Repo Name" />
+
+        <TextView
+            android:id="@+id/repo_description_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textSize="@dimen/item_description_text_size"
+            android:textStyle="italic"
+            tools:text="Repo Description" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
