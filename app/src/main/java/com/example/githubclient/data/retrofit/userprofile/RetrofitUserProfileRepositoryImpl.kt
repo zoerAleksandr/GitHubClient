@@ -7,21 +7,11 @@ import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 class RetrofitUserProfileRepositoryImpl(private val retrofitApi: RetrofitApiImpl) : UserProfileRepository {
-
-    override fun getAll(): MutableList<UserProfileEntity> {
-        TODO("Not yet implemented")
-    }
-
     override fun getProfile(login: String): Single<UserProfileEntity> {
         return retrofitApi.retrofitApi.getUser(login)
             .subscribeOn(Schedulers.io())
-    }
-
-    override fun delete(userProfile: UserProfileEntity): Boolean {
-        TODO("Not yet implemented")
-    }
-
-    override fun update(userProfile: UserProfileEntity) {
-        TODO("Not yet implemented")
+            .map { dto ->
+                UserProfileEntity(id = dto.id, login = dto.login, image = dto.image, repos = dto.repos)
+            }
     }
 }
