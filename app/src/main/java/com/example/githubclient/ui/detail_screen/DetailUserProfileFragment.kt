@@ -11,8 +11,8 @@ import coil.transform.CircleCropTransformation
 import com.example.githubclient.R
 import com.example.githubclient.app
 import com.example.githubclient.databinding.FragmentDetailUserProfileBinding
-import com.example.githubclient.domain.userprofile.UserProfileEntity
-import com.example.githubclient.domain.userrepo.UserRepoEntity
+import com.example.githubclient.domain.entity.UserProfileEntity
+import com.example.githubclient.domain.entity.UserRepoEntity
 import com.example.githubclient.ui.AppState
 import com.example.githubclient.ui.list_screen.USER_KEY
 
@@ -27,7 +27,7 @@ class DetailUserProfileFragment : Fragment(R.layout.fragment_detail_user_profile
     private val binding: FragmentDetailUserProfileBinding by viewBinding()
     private val listAdapter: DetailUserAdapter by lazy { DetailUserAdapter() }
     private val viewModel: DetailViewModel by viewModels {
-        DetailViewModelFactory(requireContext().app.userReposRepository)
+        DetailViewModelFactory(requireContext().app.useCaseRepoList)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

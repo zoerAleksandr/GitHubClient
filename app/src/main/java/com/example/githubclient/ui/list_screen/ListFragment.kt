@@ -10,7 +10,7 @@ import coil.transform.CircleCropTransformation
 import com.example.githubclient.R
 import com.example.githubclient.app
 import com.example.githubclient.databinding.FragmentListBinding
-import com.example.githubclient.domain.userprofile.UserProfileEntity
+import com.example.githubclient.domain.entity.UserProfileEntity
 import com.example.githubclient.ui.AppState
 import com.example.githubclient.ui.detail_screen.DetailUserProfileFragment
 
@@ -19,7 +19,7 @@ const val USER_KEY = "USER_KEY"
 class ListFragment : Fragment(R.layout.fragment_list) {
     private val binding: FragmentListBinding by viewBinding()
     private val viewModel: ListViewModel by viewModels {
-        ListViewModelFactory(requireContext().app.userProfileRepository)
+        ListViewModelFactory(requireContext().app.useCaseUserProfile)
     }
     private var userProfileForBundle: UserProfileEntity? = null
 
