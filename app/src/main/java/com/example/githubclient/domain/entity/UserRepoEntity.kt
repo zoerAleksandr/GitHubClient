@@ -1,4 +1,4 @@
-package com.example.githubclient.domain.userrepo
+package com.example.githubclient.domain.entity
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

@@ -1,8 +1,7 @@
 package com.example.githubclient.data.retrofit
 
-import com.example.githubclient.data.retrofit.userprofile.UserProfileDTO
-import com.example.githubclient.data.retrofit.userrepo.UserRepoDTO
-import com.example.githubclient.domain.userrepo.UserRepoEntity
+import com.example.githubclient.data.retrofit.entity.UserProfileDTO
+import com.example.githubclient.data.retrofit.entity.UserRepoDTO
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 import retrofit2.http.Path

@@ -1,4 +1,4 @@
-package com.example.githubclient.data.retrofit.userprofile
+package com.example.githubclient.data.retrofit.entity
 
 import com.google.gson.annotations.SerializedName
 

@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubclient.databinding.ItemRepositoryBinding
-import com.example.githubclient.domain.userrepo.UserRepoEntity
+import com.example.githubclient.domain.entity.UserRepoEntity
 
 class DetailUserAdapter : RecyclerView.Adapter<DetailUserVH>() {
     private var reposList: List<UserRepoEntity> = listOf()

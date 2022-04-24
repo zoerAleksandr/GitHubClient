@@ -1,5 +1,6 @@
-package com.example.githubclient.domain.userrepo
+package com.example.githubclient.domain.repository
 
+import com.example.githubclient.domain.entity.UserRepoEntity
 import io.reactivex.rxjava3.core.Single
 
 interface UserRepoRepository {
