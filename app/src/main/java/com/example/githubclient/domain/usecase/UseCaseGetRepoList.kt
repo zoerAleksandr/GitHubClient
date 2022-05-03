@@ -3,10 +3,9 @@ package com.example.githubclient.domain.usecase
 import com.example.githubclient.domain.entity.UserRepoEntity
 import com.example.githubclient.domain.repository.UserRepoRepository
 import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.schedulers.Schedulers
 
-class UseCaseRepoList(private val repository: UserRepoRepository) {
+class UseCaseGetRepoList(private val repository: UserRepoRepository) {
     fun getReposList(loginOwner: String): Single<List<UserRepoEntity>>{
-        return repository.getReposList(loginOwner).subscribeOn(Schedulers.io())
+        return repository.getReposList(loginOwner)
     }
 }

@@ -1,4 +1,4 @@
-package com.example.githubclient.data.room
+package com.example.githubclient.data.room.reposotiry
 
 import com.example.githubclient.domain.entity.UserProfileEntity
 import com.example.githubclient.domain.repository.UserProfileRepository

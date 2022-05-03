@@ -27,7 +27,7 @@ class DetailUserProfileFragment : Fragment(R.layout.fragment_detail_user_profile
     private val binding: FragmentDetailUserProfileBinding by viewBinding()
     private val listAdapter: DetailUserAdapter by lazy { DetailUserAdapter() }
     private val viewModel: DetailViewModel by viewModels {
-        DetailViewModelFactory(requireContext().app.useCaseRepoList)
+        DetailViewModelFactory(requireContext().app.useCaseGetRepoList)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

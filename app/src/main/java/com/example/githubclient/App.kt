@@ -7,13 +7,13 @@ import com.example.githubclient.data.retrofit.repository.RetrofitUserProfileRepo
 import com.example.githubclient.data.retrofit.repository.RetrofitUserRepoRepositoryImpl
 import com.example.githubclient.domain.repository.UserProfileRepository
 import com.example.githubclient.domain.repository.UserRepoRepository
-import com.example.githubclient.domain.usecase.UseCaseRepoList
-import com.example.githubclient.domain.usecase.UseCaseUserProfile
+import com.example.githubclient.domain.usecase.UseCaseGetRepoList
+import com.example.githubclient.domain.usecase.UseCaseGetUserProfile
 
 class App : Application() {
     private val retrofit: RetrofitApiImpl = RetrofitApiImpl()
-    val useCaseUserProfile: UseCaseUserProfile by lazy { UseCaseUserProfile(userRepository) }
-    val useCaseRepoList: UseCaseRepoList by lazy { UseCaseRepoList(repoRepository) }
+    val useCaseGetUserProfile: UseCaseGetUserProfile by lazy { UseCaseGetUserProfile(userRepository) }
+    val useCaseGetRepoList: UseCaseGetRepoList by lazy { UseCaseGetRepoList(repoRepository) }
     private val userRepository: UserProfileRepository by lazy { RetrofitUserProfileRepositoryImpl(retrofit) }
     private val repoRepository: UserRepoRepository by lazy { RetrofitUserRepoRepositoryImpl(retrofit) }
 }

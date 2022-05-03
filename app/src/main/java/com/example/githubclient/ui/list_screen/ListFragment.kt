@@ -19,7 +19,7 @@ const val USER_KEY = "USER_KEY"
 class ListFragment : Fragment(R.layout.fragment_list) {
     private val binding: FragmentListBinding by viewBinding()
     private val viewModel: ListViewModel by viewModels {
-        ListViewModelFactory(requireContext().app.useCaseUserProfile)
+        ListViewModelFactory(requireContext().app.useCaseGetUserProfile)
     }
     private var userProfileForBundle: UserProfileEntity? = null
 
