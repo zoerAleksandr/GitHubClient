@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity(), OpenFragmentContract {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        if (supportFragmentManager.findFragmentById(R.id.main_container) == null) {
+        if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .add(R.id.main_container, ListFragment())
                 .commitNow()
