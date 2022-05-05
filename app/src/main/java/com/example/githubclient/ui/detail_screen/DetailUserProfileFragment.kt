@@ -1,6 +1,7 @@
 package com.example.githubclient.ui.detail_screen
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -19,8 +20,9 @@ import com.example.githubclient.ui.list_screen.USER_KEY
 class DetailUserProfileFragment : Fragment(R.layout.fragment_detail_user_profile) {
 
     companion object {
-        fun newInstance(bundle: Bundle?): DetailUserProfileFragment {
-            return DetailUserProfileFragment().apply { arguments = bundle }
+        fun newInstance(userProfileEntity: UserProfileEntity) = DetailUserProfileFragment().apply {
+            arguments = Bundle()
+            arguments?.putParcelable(USER_KEY, userProfileEntity)
         }
     }
 

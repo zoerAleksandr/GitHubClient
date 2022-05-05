@@ -1,6 +1,8 @@
 package com.example.githubclient.ui.list_screen
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -12,7 +14,7 @@ import com.example.githubclient.app
 import com.example.githubclient.databinding.FragmentListBinding
 import com.example.githubclient.domain.entity.UserProfileEntity
 import com.example.githubclient.ui.AppState
-import com.example.githubclient.ui.detail_screen.DetailUserProfileFragment
+import com.example.githubclient.ui.OpenFragmentContract
 
 const val USER_KEY = "USER_KEY"
 
@@ -22,6 +24,14 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         ListViewModelFactory(requireContext().app.useCaseGetUserProfile)
     }
     private var userProfileForBundle: UserProfileEntity? = null
+    private val openFragmentContract by lazy { activity as OpenFragmentContract }
+
+    override fun onAttach(context: Context) {
+        if (activity !is OpenFragmentContract) {
+            throw IllegalStateException("This Activity not extend OpenFragmentContract")
+        }
+        super.onAttach(context)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -32,12 +42,9 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         }
 
         binding.userProfileCardView.setOnClickListener {
-            val bundle = Bundle().also { it.putParcelable(USER_KEY, userProfileForBundle) }
-            requireActivity().supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.main_container, DetailUserProfileFragment.newInstance(bundle))
-                .addToBackStack("")
-                .commit()
+            userProfileForBundle?.let {
+                openFragmentContract.openFragment(it)
+            }
         }
     }
 
