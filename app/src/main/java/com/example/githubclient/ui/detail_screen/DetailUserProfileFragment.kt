@@ -3,17 +3,16 @@ package com.example.githubclient.ui.detail_screen
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.example.githubclient.R
-import com.example.githubclient.app
 import com.example.githubclient.databinding.FragmentDetailUserProfileBinding
 import com.example.githubclient.domain.entity.UserProfileEntity
 import com.example.githubclient.domain.entity.UserRepoEntity
 import com.example.githubclient.ui.AppState
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 const val USER_KEY = "USER_KEY"
 
@@ -28,9 +27,7 @@ class DetailUserProfileFragment : Fragment(R.layout.fragment_detail_user_profile
 
     private val binding: FragmentDetailUserProfileBinding by viewBinding()
     private val listAdapter: DetailUserAdapter by lazy { DetailUserAdapter() }
-    private val viewModel: DetailViewModel by viewModels {
-        DetailViewModelFactory(requireContext().app.useCaseGetRepoList)
-    }
+    private val viewModel: DetailViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
