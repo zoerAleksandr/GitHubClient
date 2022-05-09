@@ -12,7 +12,6 @@ import com.example.githubclient.databinding.FragmentDetailUserProfileBinding
 import com.example.githubclient.domain.entity.UserProfileEntity
 import com.example.githubclient.domain.entity.UserRepoEntity
 import com.example.githubclient.ui.AppState
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 const val USER_KEY = "USER_KEY"
 
@@ -27,7 +26,7 @@ class DetailUserProfileFragment : Fragment(R.layout.fragment_detail_user_profile
 
     private val binding: FragmentDetailUserProfileBinding by viewBinding()
     private val listAdapter: DetailUserAdapter by lazy { DetailUserAdapter() }
-    private val viewModel: DetailViewModel by viewModel()
+//    private val viewModel: DetailViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,9 +40,9 @@ class DetailUserProfileFragment : Fragment(R.layout.fragment_detail_user_profile
             }
             binding.userNameTextView.text = userProfile.login
             userProfile.login?.let {
-                viewModel.getReposList(it).observe(viewLifecycleOwner) { appState ->
-                    renderData(appState)
-                }
+//                viewModel.getReposList(it).observe(viewLifecycleOwner) { appState ->
+//                    renderData(appState)
+//                }
             }
         }
     }
