@@ -5,7 +5,7 @@
 
 Приложение для Android создано в учебных целях для отработки практических навыков по теме RxJava, Dagger 2
 
-<img src = "./githubclient_lesson_2.gif" alt="githubclient_lesson_2" height="720">
+<img src = "./githubclient_lesson_2.gif" alt="githubclient_lesson_2" height="480">
 
 Рабочая ветка - `master`
  
@@ -16,4 +16,4 @@
  3) Создать экран с деталями пользователя - сделано ветка - `lesson_1`
  4) Реализовать передачу данных от Repository до ViewModel с помощью RxJava - сделано ветка - `lesson_2`
  5) Реализовать получение данных по схеме VM -> RxJava -> Retrofit -  сделано ветка - `lesson_2`
- 6) Подключить DI
+ 6) Подключить DI - сделано на Koin ветка - `lesson_4` на Dagger2 ветка - `lesson_5`
