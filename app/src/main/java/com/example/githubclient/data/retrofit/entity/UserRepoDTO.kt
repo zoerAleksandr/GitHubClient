@@ -1,13 +1,10 @@
-package com.example.githubclient.domain.userrepo
+package com.example.githubclient.data.retrofit.entity
 
-import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import kotlinx.parcelize.Parcelize
 
-@Parcelize
-data class UserRepoEntity(
+data class UserRepoDTO(
     @SerializedName("id") val id: Long?,
     @SerializedName("name") val name: String?,
     @SerializedName("description") val description: String?,
     @SerializedName("language") val language: String?
-) : Parcelable
+)

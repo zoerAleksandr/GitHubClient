@@ -1,7 +1,7 @@
 package com.example.githubclient.data.mock
 
-import com.example.githubclient.domain.userrepo.UserRepoEntity
-import com.example.githubclient.domain.userrepo.UserRepoRepository
+import com.example.githubclient.domain.entity.UserRepoEntity
+import com.example.githubclient.domain.repository.UserRepoRepository
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 

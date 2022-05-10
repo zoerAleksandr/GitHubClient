@@ -2,7 +2,7 @@ package com.example.githubclient.ui.detail_screen
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubclient.databinding.ItemRepositoryBinding
-import com.example.githubclient.domain.userrepo.UserRepoEntity
+import com.example.githubclient.domain.entity.UserRepoEntity
 
 class DetailUserVH(private val binding: ItemRepositoryBinding) :
     RecyclerView.ViewHolder(binding.root) {
