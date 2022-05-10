@@ -8,11 +8,8 @@ import com.example.githubclient.ui.AppState
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.subscribeBy
 
-class DetailViewModel(
-    private val useCaseGetRepoList: UseCaseGetRepoList,
+class DetailViewModel(private val useCaseGetRepoList: UseCaseGetRepoList) : ViewModel() {
     private val liveData: MutableLiveData<AppState> = MutableLiveData()
-) :
-    ViewModel() {
     private val compositeDisposable = CompositeDisposable()
 
     fun getReposList(listOwner: String): LiveData<AppState> {
