@@ -8,6 +8,7 @@ import com.example.githubclient.domain.repository.UserProfileRepository
 import com.example.githubclient.domain.repository.UserRepoRepository
 import com.example.githubclient.domain.usecase.UseCaseGetRepoList
 import com.example.githubclient.domain.usecase.UseCaseGetUserProfile
+import com.example.githubclient.ui.detail_screen.DetailViewModelFactory
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -18,6 +19,14 @@ import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Named
 import javax.inject.Singleton
+
+@Module
+class ViewModelFactoryModule{
+    @Provides
+    fun provideViewModelFactory(useCaseGetRepoList: UseCaseGetRepoList): DetailViewModelFactory {
+        return DetailViewModelFactory(useCaseGetRepoList)
+    }
+}
 
 @Module
 class RepositoryModule {
