@@ -11,6 +11,11 @@ class MockUserRepoRepository : UserRepoRepository {
         UserRepoEntity(1L, "nameRepo2", "desc2", "Java"),
         UserRepoEntity(2L, "nameRepo3", "desc3", "Java"),
         UserRepoEntity(3L, "nameRepo4", "desc4", "Kotlin"),
+        UserRepoEntity(4L, "nameRepo5", "desc5", "Kotlin"),
+        UserRepoEntity(5L, "nameRepo6", "desc6", "Kotlin"),
+        UserRepoEntity(6L, "nameRepo7", "desc7", "Kotlin"),
+        UserRepoEntity(7L, "nameRepo8", "desc8", "Kotlin"),
+        UserRepoEntity(8L, "nameRepo9", "desc9", "Kotlin"),
     )
 
     override fun getReposList(loginOwner: String): Single<List<UserRepoEntity>> {

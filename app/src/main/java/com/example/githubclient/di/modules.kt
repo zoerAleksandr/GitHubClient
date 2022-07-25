@@ -1,6 +1,8 @@
 package com.example.githubclient.di
 
 import com.example.githubclient.ViewModelStore
+import com.example.githubclient.data.mock.MockUserProfileRepositoryImpl
+import com.example.githubclient.data.mock.MockUserRepoRepository
 import com.example.githubclient.data.retrofit.RetrofitApi
 import com.example.githubclient.data.retrofit.repository.RetrofitUserProfileRepositoryImpl
 import com.example.githubclient.data.retrofit.repository.RetrofitUserRepoRepositoryImpl
@@ -34,8 +36,8 @@ val modulesUseCase = module {
 val modulesData = module {
     single(named("base_usr")) { "https://api.github.com/" }
 
-    single<UserRepoRepository> { RetrofitUserRepoRepositoryImpl(retrofitApi = get()) }
-    single<UserProfileRepository> { RetrofitUserProfileRepositoryImpl(retrofitApi = get()) }
+    single<UserRepoRepository> { MockUserRepoRepository() }
+    single<UserProfileRepository> { MockUserProfileRepositoryImpl() }
     single<Retrofit> {
         Retrofit.Builder()
             .baseUrl(get<String>(named("base_usr")))
