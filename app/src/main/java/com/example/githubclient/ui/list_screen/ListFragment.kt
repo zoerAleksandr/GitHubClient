@@ -9,19 +9,23 @@ import coil.load
 import coil.transform.CircleCropTransformation
 import com.example.githubclient.R
 import com.example.githubclient.ViewModelStore
+import com.example.githubclient.app
 import com.example.githubclient.databinding.FragmentListBinding
 import com.example.githubclient.domain.entity.UserProfileEntity
 import com.example.githubclient.domain.usecase.UseCaseGetUserProfile
 import com.example.githubclient.ui.AppState
 import com.example.githubclient.ui.OpenFragmentContract
-import org.koin.android.ext.android.inject
+import javax.inject.Inject
 
 const val VIEW_MODEL_STORAGE_KEY = "VIEW_MODEL_STORAGE_KEY"
 
 class ListFragment : Fragment(R.layout.fragment_list) {
     private val binding: FragmentListBinding by viewBinding()
     private lateinit var viewModel: ListViewModel
-    private val viewModelStore: ViewModelStore by inject()
+    @Inject
+    lateinit var viewModelStore: ViewModelStore
+    @Inject
+    lateinit var useCase: UseCaseGetUserProfile
     private var userProfileForBundle: UserProfileEntity? = null
     private val openFragmentContract by lazy { activity as OpenFragmentContract }
 
@@ -29,6 +33,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         if (activity !is OpenFragmentContract) {
             throw IllegalStateException("This Activity not extend OpenFragmentContract")
         }
+        app.appComponent.inject(this)
         super.onAttach(context)
     }
 
@@ -100,7 +105,6 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     }
 
     private fun createListViewModel(): ListViewModel {
-        val useCase: UseCaseGetUserProfile by inject()
         viewModel = ListViewModelFactory(useCase).create(ListViewModel::class.java)
         viewModelStore.saveViewModel(viewModel)
         return viewModel
