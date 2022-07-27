@@ -1,6 +1,8 @@
 package com.example.githubclient.di
 
 import com.example.githubclient.ViewModelStore
+import com.example.githubclient.data.mock.MockUserProfileRepositoryImpl
+import com.example.githubclient.data.mock.MockUserRepoRepository
 import com.example.githubclient.data.retrofit.RetrofitApi
 import com.example.githubclient.data.retrofit.repository.RetrofitUserProfileRepositoryImpl
 import com.example.githubclient.data.retrofit.repository.RetrofitUserRepoRepositoryImpl
@@ -47,9 +49,19 @@ class RepositoryModule {
 @Module
 class UseCaseModule {
 
+    single<UserRepoRepository> { MockUserRepoRepository() }
+    single<UserProfileRepository> { MockUserProfileRepositoryImpl() }
+    single<Retrofit> {
+        Retrofit.Builder()
+            .baseUrl(get<String>(named("base_usr")))
+            .addCallAdapterFactory(get())
+            .addConverterFactory(get())
+            .build()
+
     @Provides
     fun provideUseCaseGetUserProfile(repository: UserProfileRepository): UseCaseGetUserProfile {
         return UseCaseGetUserProfile(repository)
+
     }
 
     @Provides
