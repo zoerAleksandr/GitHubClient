@@ -7,8 +7,10 @@ import com.example.githubclient.domain.usecase.UseCaseGetRepoList
 import com.example.githubclient.ui.AppState
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.subscribeBy
+import javax.inject.Inject
 
-class DetailViewModel(private val useCaseGetRepoList: UseCaseGetRepoList) : ViewModel() {
+class DetailViewModel @Inject constructor(private val useCaseGetRepoList: UseCaseGetRepoList) :
+    ViewModel() {
     private val liveData: MutableLiveData<AppState> = MutableLiveData()
     private val compositeDisposable = CompositeDisposable()
 

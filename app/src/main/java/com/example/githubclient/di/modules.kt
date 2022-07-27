@@ -10,31 +10,44 @@ import com.example.githubclient.domain.repository.UserProfileRepository
 import com.example.githubclient.domain.repository.UserRepoRepository
 import com.example.githubclient.domain.usecase.UseCaseGetRepoList
 import com.example.githubclient.domain.usecase.UseCaseGetUserProfile
-import com.example.githubclient.ui.detail_screen.DetailViewModel
-import com.example.githubclient.ui.list_screen.ListViewModel
-import com.example.githubclient.ui.list_screen.ListViewModelFactory
+import com.example.githubclient.ui.detail_screen.DetailViewModelFactory
 import com.google.gson.GsonBuilder
-import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.core.qualifier.named
-import org.koin.dsl.module
+import dagger.Module
+import dagger.Provides
 import retrofit2.CallAdapter
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Named
+import javax.inject.Singleton
 
-val modulesVM = module {
-    viewModel { ListViewModel(useCaseGetUserProfile = get()) }
-    viewModel { DetailViewModel(useCaseGetRepoList = get()) }
+@Module
+class ViewModelFactoryModule{
+    @Provides
+    fun provideViewModelFactory(useCaseGetRepoList: UseCaseGetRepoList): DetailViewModelFactory {
+        return DetailViewModelFactory(useCaseGetRepoList)
+    }
 }
 
-val modulesUseCase = module {
-    single { UseCaseGetUserProfile(repository = get()) }
-    single { UseCaseGetRepoList(repository = get()) }
+@Module
+class RepositoryModule {
+
+    @Singleton
+    @Provides
+    fun provideUserProfileRepository(retrofitApi: RetrofitApi): UserProfileRepository {
+        return RetrofitUserProfileRepositoryImpl(retrofitApi)
+    }
+
+    @Singleton
+    @Provides
+    fun provideUserRepoRepository(retrofitApi: RetrofitApi): UserRepoRepository {
+        return RetrofitUserRepoRepositoryImpl(retrofitApi)
+    }
 }
 
-val modulesData = module {
-    single(named("base_usr")) { "https://api.github.com/" }
+@Module
+class UseCaseModule {
 
     single<UserRepoRepository> { MockUserRepoRepository() }
     single<UserProfileRepository> { MockUserProfileRepositoryImpl() }
@@ -44,19 +57,68 @@ val modulesData = module {
             .addCallAdapterFactory(get())
             .addConverterFactory(get())
             .build()
+
+    @Provides
+    fun provideUseCaseGetUserProfile(repository: UserProfileRepository): UseCaseGetUserProfile {
+        return UseCaseGetUserProfile(repository)
+
     }
-    single { get<Retrofit>().create(RetrofitApi::class.java) }
-    factory<Converter.Factory> {
-        GsonConverterFactory
-            .create(
-                GsonBuilder()
-                    .setLenient()
-                    .create()
-            )
+
+    @Provides
+    fun provideUseCaseGetRepoList(repository: UserRepoRepository): UseCaseGetRepoList {
+        return UseCaseGetRepoList(repository)
     }
-    factory<CallAdapter.Factory> { RxJava3CallAdapterFactory.create() }
 }
 
-val modulesUtil = module {
-    single { ViewModelStore() }
+@Module
+class UtilsModule {
+
+    @Singleton
+    @Provides
+    fun provideViewModelStore(): ViewModelStore {
+        return ViewModelStore()
+    }
+}
+
+@Module
+class RetrofitModule {
+
+    @Provides
+    @Named("baseUrl")
+    fun providesBaseUrl(): String {
+        return "https://api.github.com/"
+    }
+
+    @Provides
+    @Singleton
+    fun provideRetrofit(
+        @Named("baseUrl") baseUrl: String,
+        callAdapterFactory: CallAdapter.Factory,
+        converterFactory: Converter.Factory
+    ): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .addCallAdapterFactory(callAdapterFactory)
+            .addConverterFactory(converterFactory)
+            .build()
+    }
+
+    @Provides
+    fun provideRetrofitApi(retrofit: Retrofit): RetrofitApi {
+        return retrofit.create(RetrofitApi::class.java)
+    }
+
+    @Provides
+    fun provideCallAdapterFactory(): CallAdapter.Factory {
+        return RxJava3CallAdapterFactory.create()
+    }
+
+    @Provides
+    fun provideConvertorFactory(): Converter.Factory {
+        return GsonConverterFactory.create(
+            GsonBuilder()
+                .setLenient()
+                .create()
+        )
+    }
 }
