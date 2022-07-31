@@ -36,27 +36,18 @@ class RepositoryModule {
     @Singleton
     @Provides
     fun provideUserProfileRepository(retrofitApi: RetrofitApi): UserProfileRepository {
-        return RetrofitUserProfileRepositoryImpl(retrofitApi)
+        return MockUserProfileRepositoryImpl()
     }
 
     @Singleton
     @Provides
     fun provideUserRepoRepository(retrofitApi: RetrofitApi): UserRepoRepository {
-        return RetrofitUserRepoRepositoryImpl(retrofitApi)
+        return MockUserRepoRepository()
     }
 }
 
 @Module
 class UseCaseModule {
-
-    single<UserRepoRepository> { MockUserRepoRepository() }
-    single<UserProfileRepository> { MockUserProfileRepositoryImpl() }
-    single<Retrofit> {
-        Retrofit.Builder()
-            .baseUrl(get<String>(named("base_usr")))
-            .addCallAdapterFactory(get())
-            .addConverterFactory(get())
-            .build()
 
     @Provides
     fun provideUseCaseGetUserProfile(repository: UserProfileRepository): UseCaseGetUserProfile {
