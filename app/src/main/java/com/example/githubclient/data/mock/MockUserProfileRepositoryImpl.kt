@@ -2,10 +2,8 @@ package com.example.githubclient.data.mock
 
 import com.example.githubclient.domain.entity.UserProfileEntity
 import com.example.githubclient.domain.repository.UserProfileRepository
-import io.reactivex.rxjava3.core.Single
 
-class MockUserProfileRepositoryImpl(
-) : UserProfileRepository {
+class MockUserProfileRepositoryImpl : UserProfileRepository {
     private val listUser: MutableList<UserProfileEntity> = mutableListOf(
         UserProfileEntity(
             1,
@@ -27,9 +25,7 @@ class MockUserProfileRepositoryImpl(
         ),
     )
 
-    override fun getProfile(login: String): Single<UserProfileEntity> {
-        return listUser.find { it.login == login }?.let {
-            Single.just(it)
-        } ?: Single.error(Throwable("Не нашел"))
+    override suspend fun getProfile(login: String): UserProfileEntity? {
+        return listUser.find { it.login == login }
     }
 }

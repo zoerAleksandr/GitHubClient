@@ -42,7 +42,7 @@ class DetailUserProfileFragment : Fragment(R.layout.fragment_detail_user_profile
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel =  ViewModelProvider(this, viewModelFactory).get(DetailViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(DetailViewModel::class.java)
         binding.listRepoRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.listRepoRecyclerView.adapter = listAdapter
 
@@ -52,10 +52,11 @@ class DetailUserProfileFragment : Fragment(R.layout.fragment_detail_user_profile
             }
             binding.userNameTextView.text = userProfile.login
             userProfile.login?.let {
-                viewModel.getReposList(it).observe(viewLifecycleOwner) { appState ->
-                    renderData(appState)
-                }
+                viewModel.getReposList(it)
             }
+        }
+        viewModel.getData().observe(viewLifecycleOwner) { appState ->
+            renderData(appState)
         }
     }
 
