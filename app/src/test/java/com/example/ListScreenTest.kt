@@ -10,6 +10,7 @@ import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.times
 import com.nhaarman.mockito_kotlin.verify
 import io.reactivex.rxjava3.core.Single
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
@@ -19,81 +20,57 @@ import org.mockito.Mockito.`when`
 import org.mockito.Mockito.anyString
 import org.mockito.MockitoAnnotations
 
+@ExperimentalCoroutinesApi
 class ListScreenTest {
 
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
 
+    @get:Rule
+    var testCoroutineRule = TestCoroutinesRule()
+
     @Mock
     private lateinit var useCaseGetUserProfile: UseCaseGetUserProfile
-
-    private val schedulers = ScheduleProviderStub()
 
     private lateinit var viewModel: ListViewModel
 
     @Before
     fun setup() {
         MockitoAnnotations.openMocks(this)
-        viewModel = ListViewModel(useCaseGetUserProfile, schedulers)
+        viewModel = ListViewModel(useCaseGetUserProfile)
     }
 
     @Test
     fun useCase_getProfile_test() {
-        val userProfileEntity = UserProfileEntity(null, null, null, null)
-        val request = "Login"
+        testCoroutineRule.runBlockingTest {
+            val userProfileEntity = UserProfileEntity(null, null, null, null)
+            val request = "Login"
 
-        `when`(useCaseGetUserProfile.getProfile(request)).thenReturn(
-            Single.just(userProfileEntity)
-        )
-
-        viewModel.onSend(request)
-
-        verify(useCaseGetUserProfile, times(1)).getProfile(request)
-    }
-
-    @Test
-    fun liveData_returnResult_test(){
-        val observer = Observer<AppState>{}
-        val liveData = viewModel.getData()
-
-        val request = "Login"
-        val userProfileEntity = UserProfileEntity(1L, null, null, null)
-        val answer = AppState.Success(userProfileEntity)
-
-        `when`(useCaseGetUserProfile.getProfile(request)).thenReturn(
-            Single.just(userProfileEntity)
-        )
-
-        try {
-            liveData.observeForever(observer)
+            `when`(useCaseGetUserProfile.getProfile(request)).thenReturn(userProfileEntity)
             viewModel.onSend(request)
-            assertEquals(answer, liveData.value)
-        }
-        finally {
-            liveData.removeObserver(observer)
+            verify(useCaseGetUserProfile, times(1)).getProfile(request)
         }
     }
 
     @Test
-    fun liveData_returnError_test(){
-        val observer = Observer<AppState>{}
-        val liveData = viewModel.getData()
+    fun liveData_returnResult_test() {
+        testCoroutineRule.runBlockingTest {
+            val observer = Observer<AppState> {}
+            val liveData = viewModel.getData()
 
-        val error = "Error"
-        val answer = AppState.Error(IllegalStateException(error))
+            val request = "Login"
+            val userProfileEntity = UserProfileEntity(1L, null, null, null)
+            val answer = AppState.Success(userProfileEntity)
 
-        `when`(useCaseGetUserProfile.getProfile(any())).thenReturn(
-            Single.error(IllegalStateException(error))
-        )
+            `when`(useCaseGetUserProfile.getProfile(request)).thenReturn(userProfileEntity)
 
-        try {
-            liveData.observeForever(observer)
-            viewModel.onSend(anyString())
-            val v: AppState.Error = liveData.value as AppState.Error
-            assertEquals(answer.error.message, v.error.message)
-        }
-        finally {
-            liveData.removeObserver(observer)
+            try {
+                liveData.observeForever(observer)
+                viewModel.onSend(request)
+                assertEquals(answer, liveData.value)
+            } finally {
+                liveData.removeObserver(observer)
+            }
         }
     }
 }
