@@ -2,10 +2,9 @@ package com.example.githubclient.data.room.reposotiry
 
 import com.example.githubclient.domain.entity.UserProfileEntity
 import com.example.githubclient.domain.repository.UserProfileRepository
-import io.reactivex.rxjava3.core.Single
 
 class RoomUserProfileRepositoryImpl : UserProfileRepository {
-    override fun getProfile(login: String): Single<UserProfileEntity> {
+    override suspend fun getProfile(login: String): UserProfileEntity {
         TODO("Not yet implemented")
     }
 }

@@ -4,14 +4,13 @@ import com.example.githubclient.ViewModelStore
 import com.example.githubclient.data.mock.MockUserProfileRepositoryImpl
 import com.example.githubclient.data.mock.MockUserRepoRepository
 import com.example.githubclient.data.retrofit.RetrofitApi
-import com.example.githubclient.data.retrofit.repository.RetrofitUserProfileRepositoryImpl
-import com.example.githubclient.data.retrofit.repository.RetrofitUserRepoRepositoryImpl
 import com.example.githubclient.domain.repository.UserProfileRepository
 import com.example.githubclient.domain.repository.UserRepoRepository
 import com.example.githubclient.domain.usecase.UseCaseGetRepoList
 import com.example.githubclient.domain.usecase.UseCaseGetUserProfile
 import com.example.githubclient.ui.detail_screen.DetailViewModelFactory
 import com.google.gson.GsonBuilder
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import retrofit2.CallAdapter
@@ -23,7 +22,7 @@ import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
-class ViewModelFactoryModule{
+class ViewModelFactoryModule {
     @Provides
     fun provideViewModelFactory(useCaseGetRepoList: UseCaseGetRepoList): DetailViewModelFactory {
         return DetailViewModelFactory(useCaseGetRepoList)
@@ -36,27 +35,18 @@ class RepositoryModule {
     @Singleton
     @Provides
     fun provideUserProfileRepository(retrofitApi: RetrofitApi): UserProfileRepository {
-        return RetrofitUserProfileRepositoryImpl(retrofitApi)
+        return MockUserProfileRepositoryImpl()
     }
 
     @Singleton
     @Provides
     fun provideUserRepoRepository(retrofitApi: RetrofitApi): UserRepoRepository {
-        return RetrofitUserRepoRepositoryImpl(retrofitApi)
+        return MockUserRepoRepository()
     }
 }
 
 @Module
 class UseCaseModule {
-
-    single<UserRepoRepository> { MockUserRepoRepository() }
-    single<UserProfileRepository> { MockUserProfileRepositoryImpl() }
-    single<Retrofit> {
-        Retrofit.Builder()
-            .baseUrl(get<String>(named("base_usr")))
-            .addCallAdapterFactory(get())
-            .addConverterFactory(get())
-            .build()
 
     @Provides
     fun provideUseCaseGetUserProfile(repository: UserProfileRepository): UseCaseGetUserProfile {
@@ -98,6 +88,7 @@ class RetrofitModule {
     ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .addCallAdapterFactory(callAdapterFactory)
             .addConverterFactory(converterFactory)
             .build()

@@ -4,20 +4,16 @@ import com.example.githubclient.data.retrofit.RetrofitApi
 import com.example.githubclient.data.retrofit.entity.UserRepoDTO
 import com.example.githubclient.domain.entity.UserRepoEntity
 import com.example.githubclient.domain.repository.UserRepoRepository
-import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.schedulers.Schedulers
 
 class RetrofitUserRepoRepositoryImpl(private val retrofitApi: RetrofitApi) :
     UserRepoRepository {
-    override fun getReposList(loginOwner: String): Single<List<UserRepoEntity>> {
-        return retrofitApi.listRepos(loginOwner)
-            .subscribeOn(Schedulers.io())
-            .map {
-                listEntityFromListDto(it)
-            }
+    override suspend fun getReposList(loginOwner: String): List<UserRepoEntity> {
+        val dto = retrofitApi.listReposAsync(loginOwner).await()
+        return listEntityFromListDto(dto)
+
     }
 
-    override fun getRepo(id: Long): UserRepoEntity? {
+    override suspend fun getRepo(id: Long): UserRepoEntity? {
         TODO("Not yet implemented")
     }
 
